@@ -49,20 +49,20 @@ LINKS = $(BF_LIB_C_FLAGS)
 ### Release settings
 ifeq ($(CONFIG),release) # release
 MAIN_FILE = src/main.c
-BIN_NAME = listdir
+BIN_NAME = mytime
 FLAGS = $(CPPFLAGS) -Isrc/ -Iexternal/bin/libs/release
 
 ### Debug settings
 else ifeq ($(CONFIG),debug) # debug
 MAIN_FILE = src/main.c
-BIN_NAME = listdir-debug
+BIN_NAME = mytime-debug
 #ADDR_SANITIZER = -fsanitize=address
 FLAGS = $(CPPFLAGS) -DDEBUG -g -Isrc/ $(ADDR_SANITIZER) -Iexternal/bin/libs/debug
 
 ### Test settings
 else ifeq ($(CONFIG),test) # test
 MAIN_FILE = testbench/tests.c
-BIN_NAME = listdir-test
+BIN_NAME = mytime-test
 #ADDR_SANITIZER = -fsanitize=address
 FLAGS = $(CPPFLAGS) -DDEBUG -DTESTING -g -Isrc/ $(ADDR_SANITIZER) -Iexternal/bin/libs/debug
 LIBRARIES += \
