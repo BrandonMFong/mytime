@@ -73,6 +73,20 @@ endif # ($(CONFIG),...)
 LIBS_MAKEFILES_PATH:=$(CURDIR)/external/libs/makefiles
 include $(LIBS_MAKEFILES_PATH)/build.mk 
 
+### Packaging
+
+UNAME_S := $(shell uname -s)
+ifeq ($(UNAME_S),Linux)
+PACKAGE_NAME = mytime-linux
+endif
+ifeq ($(UNAME_S),Darwin)
+PACKAGE_NAME = mytime-macos
+endif
+PACKAGE_BIN_PATH = $(BIN_PATH)
+PACKAGE_BIN_TARGET = $(BIN_NAME)
+
+include $(LIBS_MAKEFILES_PATH)/package.mk 
+
 ### Dependencies
 
 dependencies:
@@ -82,4 +96,7 @@ clean-dependencies:
 	cd external && make clean
 
 clean-all: clean clean-dependencies
+
+clean:
+	rm -rfv build bin $(PACKAGE_NAME)
 
