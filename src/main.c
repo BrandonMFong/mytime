@@ -24,6 +24,9 @@
 #define US_ARG "-u"
 #define EPOCH_ARG "-e"
 #define BRIEF_DESCRIPTION_ARG "--brief-description"
+#define VERSION_ARG "-v"
+
+#define VERSION_STRING "0.1.1"
 
 /**
  * Holds the name of the script
@@ -42,10 +45,15 @@ void Help() {
 	printf(	"  %s [ <epoch value> ] : Prints out current epoch\n"
 			"     time.  If value is passed, will print out the\n"
 			"     date time version of epoch time\n", EPOCH_ARG);
+	printf("  %s : Prints version\n", VERSION_ARG);
 }
 
 void BriefDescription() {
 	printf("time tool. Can print time and handle epoch time conversions\n");
+}
+
+void PrintVersion() {
+	printf("%s\n", VERSION_STRING);
 }
 
 void PrintTime(const time_t sec, const long nsec) {
@@ -88,6 +96,7 @@ int main(int argc, char * argv[]) {
 	time_t inputEpoch = 0;
 	bool epochFlag = false;
 	bool brieflyDescribe = false;
+	bool printVersion = false;
 
 	for (int i = 0; i < argc; i++) {
 		if (!strcmp(argv[i], HELP_ARG)) {
@@ -105,6 +114,8 @@ int main(int argc, char * argv[]) {
 			SHOW_MICRO_SECS = true;
 		} else if (!strcmp(argv[i], LOCK_ARG)) {
 			lock = true;
+		} else if (!strcmp(argv[i], VERSION_ARG)) {
+			printVersion = true;
 		}
 	}
 
@@ -112,6 +123,8 @@ int main(int argc, char * argv[]) {
 		BriefDescription();
 	} else if (help) {
 		Help();
+	} else if (printVersion) {
+		PrintVersion();
 	} else if (error == 0) {
 		if (epochFlag) {
 			if (inputEpoch) {
